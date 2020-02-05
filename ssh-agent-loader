@@ -1,0 +1,22 @@
+
+#
+# 複数のプライベートキーを ssh-agent に扱わせます
+#
+# USAGE:
+#    SSH_KEYS=( "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_rsa-for-bitbucket")
+
+if [[ "${#SSH_KEYS[*]}" > 0 ]]
+then
+	if ssh-add -l >&/dev/null
+		then
+		echo "ssh-agent alive."
+	else
+		echo -n "ssh-agent: restart...."
+		ssh-agent >~/.ssh-agent-info
+		source ~/.ssh-agent-info
+
+		ssh-add -K "${SSH_KEYS[@]}"
+	fi
+fi
+
+	

@@ -1,0 +1,14 @@
+alias ll="ls -lG"
+alias lla="ls -laG"
+
+function llaa() {
+    ls -ld `ls -aG | grep -e "^\..\+$"`
+}
+
+alias sourcetree="open -a SourceTree.app"
+
+#--- Alias for docker
+
+# alias docker-rmi-all-none="docker images | awk '/<none/{print \$3}' | xargs docker rmi"
+alias docker-rmi-all-none='docker rmi $(docker images -f "dangling=true" -q)'
+alias docker-rm-all-exited-container="docker ps -a --filter 'status=exited' -q | xargs docker rm "

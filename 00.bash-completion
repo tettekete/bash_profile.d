@@ -1,0 +1,8 @@
+
+# bash-completion@2
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+# if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+#   . $(brew --prefix)/share/bash-completion/bash_completion
+# fi
+
+# __git_ps1 等を PS1 で使うため PS1 より先に source される必要がある

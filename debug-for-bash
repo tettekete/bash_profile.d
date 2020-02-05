@@ -1,0 +1,21 @@
+# シェルスクリプトデバッグ用関数
+
+func_test()
+{
+	local bash_opts=()
+
+	while [[ $# > 0 ]]; do
+		case "$1" in
+			-*	) bash_opts+=("$1")		;;
+			*) break			;;
+		esac
+		shift
+	done
+
+	local lib="$1"
+	shift
+	
+	local code="source $lib ; if $@ ;then echo TRUE ; else echo FALSE ; fi"
+	
+	bash $bash_opts -c "$code"
+}

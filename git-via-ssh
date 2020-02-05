@@ -1,0 +1,7 @@
+# .ssh/config で SendEnv し、リモートの git author を自動解決させるための ENV 設定
+export GIT_AUTHOR_NAME=`git config --get user.name`
+export GIT_AUTHOR_EMAIL=`git config --get user.email`
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+	# ssh -A で ssh-agent の転送はしてくれるが、コミッター情報などは環境変数で送らないとダメなのでコメントアウトしてはだめ
+

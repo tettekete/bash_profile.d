@@ -1,0 +1,6 @@
+
+
+# Mervericks へアップデート後、cpan モジュール系が無いと怒られるようになったので、インストールしたらコレを追記しろとと cpan コマンドに言われたの追記
+PERL_MB_OPT="--install_base \"/Users/seo/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/seo/perl5"; export PERL_MM_OPT;
+

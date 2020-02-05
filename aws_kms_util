@@ -1,0 +1,42 @@
+
+# [“aws kms - How can I call Amazon's AWS kms decrypt function without using a binary file? - Stack Overflow”](https://stackoverflow.com/questions/49537224/how-can-i-call-amazons-aws-kms-decrypt-function-without-using-a-binary-file/53735748#53735748)
+
+kmse()
+{
+  local key=${1:-$KMS_KEY};
+
+  if [ -z "$key" ]
+  then
+  	echo "\
+Error: Require key-id or alias/key-name.
+SYNOPSIS:
+
+  kmse [<kms-key-id>|alias/<key-name>]
+
+USAGE:
+
+  cat plain-data | kmse <kms-key-id>
+" >&2
+	
+	return
+  fi
+
+  aws kms encrypt \
+    --key-id $key \
+    --plaintext "$(cat /dev/stdin)" \
+    --query CiphertextBlob \
+    --output text;
+}
+
+kmsd(){
+  aws kms decrypt \
+    --ciphertext-blob fileb://<( \
+      cat /dev/stdin | \
+      sed 's/.*kmscrypt:://' | \
+      tr -d '\n' | \
+      base64 -D
+    ) \
+    --output text \
+    --query Plaintext | \
+  base64 -D;
+}
